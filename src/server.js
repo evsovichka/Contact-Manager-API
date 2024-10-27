@@ -8,7 +8,9 @@ const PORT = Number(env('PORT', '3000'));
 
 export default function setupServer() {
   const app = express();
+
   app.use(cors());
+
   app.use(
     pino({
       transport: {
