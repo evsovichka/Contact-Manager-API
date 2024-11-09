@@ -1,9 +1,13 @@
-import { raw } from 'express';
 import { ContactsCollection } from '../db/models/contact.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllContacts = async () => {
-  const contacts = await ContactsCollection.find();
-  return contacts;
+export const getAllContacts = async ({ page = 1, perPage = 10 }) => {
+  const skip = (page - 1) * perPage;
+
+  const contacts = await ContactsCollection.find().skip(skip).limit(perPage);
+  const totalItems = await ContactsCollection.countDocuments();
+  const paginationData = calculatePaginationData({ totalItems, page, perPage });
+  return { contacts, ...paginationData };
 };
 
 export const getContactById = async (contactId) => {
@@ -20,7 +24,7 @@ export const updateContact = async (contactId, payload, options = {}) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
     { _id: contactId },
     payload,
-    { new: true, includeResultMetadata: true, ...options },
+    { includeResultMetadata: true, ...options },
   );
 
   if (!rawResult || !rawResult.value) return null;
