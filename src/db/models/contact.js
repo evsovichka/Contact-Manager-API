@@ -18,6 +18,7 @@ const contactSchema = new Schema(
 );
 
 export const keyOfStudentForSort = ['_id', 'name'];
+export const contactType = ['work', 'home', 'personal'];
 
 contactSchema.post('save', handleSaveError);
 contactSchema.pre('findOneAndUpdate', setUpdatesettings);

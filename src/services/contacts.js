@@ -6,16 +6,31 @@ export const getAllContacts = async ({
   perPage = 10,
   sortOrder = 'asc',
   sortBy = '_id',
+  filter = {},
 }) => {
   const skip = (page - 1) * perPage;
 
-  const contacts = await ContactsCollection.find()
-    .skip(skip)
+  const ContactsQuery = ContactsCollection.find();
+
+  if (filter.type) {
+    ContactsQuery.where('contactType').equals(filter.type);
+  }
+
+  if (filter.isFavourite !== undefined) {
+    ContactsQuery.where('isFavourite').equals(filter.isFavourite);
+  }
+
+  const totalItems = await ContactsCollection.find()
+    .merge(ContactsQuery)
+    .countDocuments();
+
+  const contacts = await ContactsQuery.skip(skip)
     .limit(perPage)
-    .sort({ [sortBy]: sortOrder });
-  const totalItems = await ContactsCollection.countDocuments();
+    .sort({ [sortBy]: sortOrder })
+    .exec();
+
   const paginationData = calculatePaginationData({ totalItems, page, perPage });
-  return { contacts, ...paginationData };
+  return { data: contacts, ...paginationData };
 };
 
 export const getContactById = async (contactId) => {
