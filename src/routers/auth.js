@@ -22,4 +22,6 @@ routerAuth.post(
   '/refresh',
   ctrlWrapper(authControllers.refreshUserSessionController),
 );
+
+routerAuth.post('/logout', ctrlWrapper(authControllers.logoutUserController));
 export default routerAuth;

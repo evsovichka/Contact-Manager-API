@@ -1,6 +1,7 @@
 import { THIRTY_DAY } from '../constants/index.js';
 import {
   loginUser,
+  logoutUser,
   refreshUserSession,
   registerUser,
 } from '../services/auth.js';
@@ -55,4 +56,15 @@ export const refreshUserSessionController = async (req, res) => {
       accessToken: session.accessToken,
     },
   });
+};
+
+export const logoutUserController = async (req, res) => {
+  const sessionId = req.cookies.sessionId;
+  if (sessionId) {
+    await logoutUser(sessionId);
+  }
+
+  res.clearCookie('sessionId');
+  res.clearCookie('refreshToken');
+  res.status(204).send();
 };
