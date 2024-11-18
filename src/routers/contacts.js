@@ -27,11 +27,11 @@ router.post(
   ctrlWrapper(contactsControllers.createContactController),
 );
 
-router.put(
-  '/:contactId',
-  isValidId,
-  ctrlWrapper(contactsControllers.upsertContactController),
-);
+// router.put(
+//   '/:contactId',
+//   isValidId,
+//   ctrlWrapper(contactsControllers.upsertContactController),
+// );
 
 router.patch(
   '/:contactId',
