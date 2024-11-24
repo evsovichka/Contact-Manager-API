@@ -28,7 +28,7 @@ routerAuth.post(
 );
 
 routerAuth.post(
-  'send-reset-email',
+  '/send-reset-email',
   validateBody(requestResetEmailSchema),
   ctrlWrapper(authControllers.requestResetEmailController),
 );
