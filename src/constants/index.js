@@ -24,4 +24,4 @@ export const CLOUDINARY = {
 };
 
 export const TEMP_UPLOAD_DIR = path.resolve('temp');
-export const UPLOAD_DIR = path.resolve('uploads');
+export const UPLOADS_DIR = path.resolve('uploads');

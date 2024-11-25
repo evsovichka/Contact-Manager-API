@@ -7,6 +7,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import routerAuth from './routers/auth.js';
 import cookieParser from 'cookie-parser';
+import { UPLOADS_DIR } from './constants/index.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -16,6 +17,7 @@ export default function setupServer() {
   app.use(cors());
   app.use(express.json());
   app.use(cookieParser());
+  app.use(express.static('uploads'));
 
   app.use(
     pino({
