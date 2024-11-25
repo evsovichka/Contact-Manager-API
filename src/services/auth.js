@@ -127,3 +127,31 @@ export const requestResetEmail = async (email) => {
 
   await sendEmail(verifyEmail);
 };
+
+export const resetPassword = async ({ data, sessionId }) => {
+  let entries;
+  try {
+    entries = jwt.verify(data.token, env('JWT_SECRET'));
+  } catch (error) {
+    throw createHttpError(401, 'Token is expired or invalid.');
+  }
+
+  const user = await usersCollection.findOne({
+    email: entries.email,
+    _id: entries.sub,
+  });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found!');
+  }
+
+  await sessionCollection.deleteOne({ _id: sessionId });
+  const encryptedPassword = await bcrypt.hash(data.password, 10);
+
+  await usersCollection.findOneAndUpdate(
+    { _id: user._id },
+    {
+      password: encryptedPassword,
+    },
+  );
+};
