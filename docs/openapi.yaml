@@ -7,12 +7,19 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: PhoneBook with your contacts
 tags:
-  # теги, що ви будете використовувати
+  - name: Contacts
+    description: Operations about contacts.
 servers:
   - url: http://localhost:3000
   - url: https://contacts-app-tbci.onrender.com
 paths:
-  # тут будуть посилання на ендпоінти
+  /contacts:
+    get:
+      $ref: ../swagger/paths/contacts/get.yaml
+  /contacts/{contactId}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml
+
 components:
   securitySchemes:
     bearerAuth:
