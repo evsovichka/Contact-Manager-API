@@ -35,7 +35,7 @@ parameters:
       type: boolean
       example: false
   - in: query
-    name: isType
+    name: type
     schema:
       type: string
       enum: ['work', 'home', 'personal']

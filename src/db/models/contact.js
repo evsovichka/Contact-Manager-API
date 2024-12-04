@@ -18,7 +18,7 @@ const contactSchema = new Schema(
   },
   { versionKey: false, timestamps: true },
 );
-
+``;
 export const keyOfStudentForSort = ['_id', 'name'];
 export const contactType = ['work', 'home', 'personal'];
 
