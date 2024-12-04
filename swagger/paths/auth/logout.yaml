@@ -1,0 +1,16 @@
+tags:
+  - Auth
+summary: Logout user
+operationId: logoutUser
+description: Logs out the user by deleting their session and clearing the session cookies. Requires authentication via Bearer token.
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: Successfully logged out. No content returned.
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml

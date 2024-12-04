@@ -1,8 +1,8 @@
 tags:
   - Auth
-summary: Register user
-operationId: registerUser
-description: 'Register a user'
+summary: Login user
+operationId: loginUser
+description: 'login user'
 security: []
 requestBody:
   required: true
@@ -11,14 +11,9 @@ requestBody:
       schema:
         type: object
         required:
-          - name
           - email
           - password
         properties:
-          name:
-            type: string
-            example: 'John Doe'
-            description: "User's name"
           email:
             type: string
             example: 'johnDoe@example.com'
@@ -29,8 +24,8 @@ requestBody:
             example: '123456'
             description: "User's password for authorization"
 responses:
-  '201':
-    description: Registered a user
+  '200':
+    description: Successfully logged
     content:
       application/json:
         schema:
@@ -42,14 +37,22 @@ responses:
           properties:
             status:
               type: integer
-              example: 201
+              example: 200
             message:
               type: string
-              example: Successfully registered a user!
+              example: Successfully logged in an user!
             data:
               type: object
-              $ref: ../../components/schemas/authRegister.yaml
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: 'IULaqdT4JtfbrtC2LYnYkZplCkIfdnolUZuV77gg'
+                  description: AccessToken created with login user
   '400':
     $ref: ../../components/responses/400.yaml
   '500':
     $ref: ../../components/responses/500.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
