@@ -93,7 +93,7 @@
           },
           {
             "in": "query",
-            "name": "isType",
+            "name": "type",
             "schema": {
               "type": "string",
               "enum": [
